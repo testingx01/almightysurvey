@@ -15,6 +15,7 @@ const randomString = function (length) {
 };
 
 export default function App() {
+  //var flag = 0;
   const [msg, setMsg] = useState();
   const [accnt, setAccnt] = useState();
 
@@ -31,10 +32,26 @@ export default function App() {
 
       const signAddress = await ethers.utils.verifyMessage(message, signature);
       if (signAddress.toLowerCase() === accounts[0].toLowerCase()) {
-        setMsg("User Login");
+        //flag = 1;
+        setMsg(msg);
         setAccnt(accounts[0]);
-        const createSurvey = createRoot(document.getElementById("surveyCreatorContainer"));
-        createSurvey.render(<SurveyCreatorComponent />);
+        const accAdd = String(accounts[0]).substring(1,9);
+        const createSurvey = await createRoot(document.getElementById("surveyCreatorContainer"));
+        await createSurvey.render(<SurveyCreatorComponent />);
+        document.getElementById("accUser").innerHTML=`
+	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+  `+accAdd+`<span class="glyphicon glyphicon-circle-arrow-down"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+            <li><a class="dropdown-item" href="#">`+signAddress+`</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>`;
+    document.getElementById('accUser').writeAttribute('onclick','');
       } else {
         alert("OOPS..\nSomething went wrong!!\nLogin failed");
       }
@@ -43,13 +60,22 @@ export default function App() {
     }
   };
   return (
-    <div className="App">
-      <h1>Welcome! to Web3 survey</h1>
-      <button className="ConnectBtn" onClick={cryptoButton}>
+    <div>
+    <div className="App navbar navbar-light bg-light container-fluid">
+      <h1>Web3Form</h1>
+      <button className="ConnectBtn btn btn-outline-success" onClick={cryptoButton} id="accUser">
         Connect Wallet
       </button>
-      <p>{msg}</p>
-      {msg === "User Login" && <div>Account: {accnt}</div>}
     </div>
+    <div class="card text-center">
+    <div class="card-header">
+      <h2>ETHIndia 2022</h2>
+    </div>
+    <div class="card-body">
+      <h3 class="card-title">Team: Almighty</h3>
+        <p class="card-text">Idea is to take a Survey Form from web2 to web3 using Worldcoin Proof of People.</p>
+    </div>
+  </div>
+  </div>
   );
 }

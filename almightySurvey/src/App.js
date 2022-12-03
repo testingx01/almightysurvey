@@ -51,7 +51,6 @@ export default function App() {
         </li>
       </ul>
     </div>`;
-    document.getElementById('accUser').writeAttribute('onclick','');
       } else {
         alert("OOPS..\nSomething went wrong!!\nLogin failed");
       }
@@ -73,7 +72,7 @@ export default function App() {
     </div>
     <div class="card-body">
       <h3 class="card-title">Team: Almighty</h3>
-        <p class="card-text">Idea is to take a Survey Form from web2 to web3 using Worldcoin Proof of People.</p>
+        <p class="card-text">Idea is to take Survey Form from web2 to web3 using Worldcoin Proof of People.</p>
     </div>
   </div>
   </div>
